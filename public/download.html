@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Завантаження Clix Taxi...</title>
+  <meta name="theme-color" content="#0F0A2A">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0; 
+      padding: 0; 
+      font-family: 'Inter', sans-serif;
+      background-color: #0F0A2A; 
+      color: white; 
+      display: flex;
+      justify-content: center; 
+      align-items: center; 
+      height: 100vh;
+      text-align: center; 
+      overflow: hidden;
+      background-image: radial-gradient(circle at 50% 50%, rgba(94, 72, 232, 0.15) 0%, transparent 60%);
+    }
+    .loader-container {
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      gap: 24px;
+      animation: fadeInUp 0.5s ease-out;
+    }
+    .logo {
+      width: 88px; 
+      height: 88px; 
+      border-radius: 22px;
+      box-shadow: 0 12px 32px rgba(94, 72, 232, 0.3);
+    }
+    .title {
+      font-size: 1.75rem; 
+      font-weight: 800; 
+      margin: 0;
+      letter-spacing: -0.03em;
+    }
+    .title span { color: #8B7CF6; }
+    .subtitle {
+      font-size: 0.9375rem; 
+      color: rgba(255, 255, 255, 0.6); 
+      max-width: 280px;
+      margin-top: 8px; 
+      line-height: 1.5;
+    }
+    .spinner {
+      width: 44px; 
+      height: 44px;
+      border: 4px solid rgba(94, 72, 232, 0.15);
+      border-top-color: #8B7CF6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { 
+      100% { transform: rotate(360deg); } 
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+  <script>
+    window.onload = function() {
+      // 1.5 секунди затримки виключно для того, щоб ви побачили цю анімацію завантаження
+      // У реальному продакшені таймаут можна прибрати - тоді редирект буде миттєвим
+      setTimeout(() => {
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        
+        // Посилання на стори (зараз тимчасово стоїть Uber для тесту)
+        var iosLink = "https://apps.apple.com/us/app/uber-request-a-ride/id368677368"; 
+        var androidLink = "https://play.google.com/store/apps/details?id=com.ubercab";
+        
+        // Якщо це комп'ютер - кидаємо назад на лендінг
+        var fallbackLink = "/"; 
+
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+          window.location.replace(iosLink); // Перекине на App Store
+        } 
+        else if (/android/i.test(userAgent)) {
+          window.location.replace(androidLink); // Перекине на Google Play
+        } 
+        else {
+          // Якщо відкрито на ПК - повертає на головну
+          window.location.replace(fallbackLink); 
+        }
+      }, 1500); 
+    };
+  </script>
+</head>
+<body>
+  <div class="loader-container">
+    <!-- Логотип підтягнеться автоматично -->
+    <img src="/icons/logo.jpg" alt="Clix Taxi" class="logo" />
+    <div class="spinner"></div>
+    <div>
+      <h1 class="title">Clix<span>Taxi</span></h1>
+      <p class="subtitle">Визначаємо пристрій та перенаправляємо...</p>
+    </div>
+  </div>
+</body>
+</html>
