@@ -2,6 +2,7 @@ import { useApp } from '../../context/AppContext';
 import { useReveal } from '../../hooks/useReveal';
 import { useCountUp } from '../../hooks/useCountUp';
 import { useGyroscope } from '../../hooks/useGyroscope';
+import LvivMiniMap from '../shared/LvivMiniMap';
 
 function AnimatedHeroStat({ stat }) {
   const [ref, count] = useCountUp(stat.val, 2000);
@@ -16,14 +17,9 @@ function AnimatedHeroStat({ stat }) {
 }
 
 /* ─── iPhone 15 Pro Max mockup (Dark / Driver mode) ─── */
-function DriverPhoneMockup({ t, tilt }) {
-  const tiltStyle = {
-    transform: `perspective(1000px) rotateY(${-tilt.x * 12}deg) rotateX(${-tilt.y * 8}deg)`,
-    transition: 'transform 0.15s ease-out',
-  };
-
+function DriverPhoneMockup({ t, gyroRef }) {
   return (
-    <div className="relative w-[260px] lg:w-[300px]" style={tiltStyle}>
+    <div className="relative w-[260px] lg:w-[300px]" ref={gyroRef}>
       {/* Titanium frame */}
       <div
         className="rounded-[48px] p-[3px] relative"
@@ -71,13 +67,12 @@ function DriverPhoneMockup({ t, tilt }) {
                   {t('app_status')}
                 </div>
               </div>
-              {/* Map area */}
-              <div className="flex-1 bg-[#1A1145] rounded-2xl overflow-hidden relative mb-3">
-                <div className="w-full h-full bg-[radial-gradient(circle_at_30%_40%,rgba(94,72,232,0.15)_0%,transparent_50%),linear-gradient(135deg,#1A1145_0%,#241B5E_100%)] flex items-center justify-center relative">
-                  <div className="absolute inset-0 bg-[linear-gradient(rgba(94,72,232,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(94,72,232,0.06)_1px,transparent_1px)] bg-[length:20px_20px]" />
-                  <div className="w-8 h-8 bg-[#5E48E8] rounded-[50%_50%_50%_0] -rotate-45 relative z-2 shadow-[0_0_20px_rgba(94,72,232,0.5)] animate-[bounce-pin_2s_ease-in-out_infinite]" />
-                </div>
+
+              {/* Map area – Lviv mini-map (dark) */}
+              <div className="flex-1 rounded-2xl overflow-hidden relative mb-3">
+                <LvivMiniMap variant="dark" />
               </div>
+
               {/* Order card */}
               <div className="bg-[#1A1145] border border-[#5E48E8]/20 rounded-2xl p-3.5 animate-[slide-up_0.6s_ease-out_1.5s_both]">
                 <div className="flex justify-between items-center mb-2.5">
@@ -124,7 +119,7 @@ function DriverPhoneMockup({ t, tilt }) {
 export default function DriverHero() {
   const { t } = useApp();
   const badgeRef = useReveal();
-  const tilt = useGyroscope(0.6);
+  const gyroRef = useGyroscope(0.6);
 
   return (
     <section className="lg:min-h-screen flex items-center pt-[100px] pb-10 lg:pb-16 relative overflow-hidden bg-[#0F0A2A]" id="hero">
@@ -174,7 +169,7 @@ export default function DriverHero() {
 
         {/* Phone Mockup */}
         <div className="flex justify-center items-center relative order-first lg:order-last animate-[fadeInUp_1s_ease-out_0.5s_both]">
-          <DriverPhoneMockup t={t} tilt={tilt} />
+          <DriverPhoneMockup t={t} gyroRef={gyroRef} />
         </div>
       </div>
     </section>

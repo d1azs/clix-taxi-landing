@@ -1,6 +1,7 @@
 import { useApp } from '../../context/AppContext';
 import { useCountUp } from '../../hooks/useCountUp';
 import { useGyroscope } from '../../hooks/useGyroscope';
+import LvivMiniMap from '../shared/LvivMiniMap';
 
 function AnimatedPassengerHeroStat({ stat }) {
   // Handle the '4.' hack
@@ -32,14 +33,9 @@ function AnimatedPassengerHeroStat({ stat }) {
 }
 
 /* ─── iPhone 15 Pro Max mockup (Dynamic Island) ─── */
-function PhoneMockup({ t, tilt }) {
-  const tiltStyle = {
-    transform: `perspective(1000px) rotateY(${tilt.x * 12}deg) rotateX(${-tilt.y * 8}deg)`,
-    transition: 'transform 0.15s ease-out',
-  };
-
+function PhoneMockup({ t, gyroRef }) {
   return (
-    <div className="relative w-[260px] lg:w-[300px]" style={tiltStyle}>
+    <div className="relative w-[260px] lg:w-[300px]" ref={gyroRef}>
       {/* Titanium frame */}
       <div
         className="rounded-[48px] p-[3px] relative"
@@ -91,14 +87,9 @@ function PhoneMockup({ t, tilt }) {
                 </div>
               </div>
 
-              {/* Map area */}
-              <div className="flex-1 bg-[#F0F0F5] rounded-2xl overflow-hidden relative mb-3">
-                <div className="w-full h-full bg-[radial-gradient(circle_at_60%_50%,rgba(94,72,232,0.08)_0%,transparent_50%),linear-gradient(135deg,#F0F0F5_0%,#E8E8F0_100%)] flex items-center justify-center relative">
-                  <div className="absolute inset-0 bg-[linear-gradient(rgba(94,72,232,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(94,72,232,0.04)_1px,transparent_1px)] bg-[length:20px_20px]" />
-                  <div className="w-7 h-7 bg-[#5E48E8] rounded-[50%_50%_50%_0] -rotate-45 relative z-2 shadow-[0_0_16px_rgba(94,72,232,0.35)] animate-[bounce-pin_2s_ease-in-out_infinite]" />
-                  <div className="absolute w-0.5 h-[60px] bg-gradient-to-b from-[#5E48E8] to-[#10B981] top-1/2 left-[calc(50%+30px)] rotate-[30deg] opacity-50 rounded-sm" />
-                  <div className="absolute bottom-[30%] right-[25%] text-xl animate-[car-move_4s_ease-in-out_infinite]">🚕</div>
-                </div>
+              {/* Map area – Lviv mini-map */}
+              <div className="flex-1 rounded-2xl overflow-hidden relative mb-3">
+                <LvivMiniMap variant="light" />
               </div>
 
               {/* Ride card */}
@@ -150,7 +141,7 @@ function PhoneMockup({ t, tilt }) {
 
 export default function PassengerHero() {
   const { t } = useApp();
-  const tilt = useGyroscope(0.6);
+  const gyroRef = useGyroscope(0.6);
 
   return (
     <section className="lg:min-h-screen flex items-center pt-[100px] pb-10 lg:pb-16 relative overflow-hidden bg-white" id="p-hero">
@@ -200,7 +191,7 @@ export default function PassengerHero() {
 
         {/* Phone Mockup */}
         <div className="flex justify-center items-center relative order-first lg:order-last animate-[fadeInUp_1s_ease-out_0.5s_both]">
-          <PhoneMockup t={t} tilt={tilt} />
+          <PhoneMockup t={t} gyroRef={gyroRef} />
         </div>
       </div>
     </section>
