@@ -66,27 +66,31 @@
   </style>
   <script>
     window.onload = function() {
-      // 1.5 секунди затримки виключно для того, щоб ви побачили цю анімацію завантаження
-      // У реальному продакшені таймаут можна прибрати - тоді редирект буде миттєвим
+      // 1.5 секунди затримки для плавної анімації завантаження
       setTimeout(() => {
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
         
-        // Посилання на стори (зараз тимчасово стоїть Uber для тесту)
-        var iosLink = "https://apps.apple.com/us/app/uber-request-a-ride/id368677368"; 
-        var androidLink = "https://play.google.com/store/apps/details?id=com.ubercab";
+        // --- НАЛАШТУВАННЯ ПОСИЛАНЬ ДЛЯ ЗАВАНТАЖЕННЯ ---
+        // 1. Для прямого завантаження APK, зберіть реліз у Flutter і покладіть файл
+        //    app-release.apk (або clix_taxi.apk) в папку public/, після чого вкажіть:
+        //    var androidLink = "/app-release.apk";
+        // 2. Для переходу на GitHub Releases, звідки користувач може завантажити APK:
+        var androidLink = "https://github.com/d1azs/Clix_Taxi/releases"; 
         
-        // Якщо це комп'ютер - кидаємо назад на лендінг
-        var fallbackLink = "/"; 
+        // Посилання на iOS версію (або GitHub репозиторій як тимчасове рішення)
+        var iosLink = "https://github.com/d1azs/Clix_Taxi"; 
+        
+        // Якщо відкрито на ПК — перекине на сторінку релізів GitHub
+        var fallbackLink = "https://github.com/d1azs/Clix_Taxi/releases"; 
 
         if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-          window.location.replace(iosLink); // Перекине на App Store
+          window.location.replace(iosLink); // Перехід для iOS
         } 
         else if (/android/i.test(userAgent)) {
-          window.location.replace(androidLink); // Перекине на Google Play
+          window.location.replace(androidLink); // Перехід/завантаження для Android
         } 
         else {
-          // Якщо відкрито на ПК - повертає на головну
-          window.location.replace(fallbackLink); 
+          window.location.replace(fallbackLink); // Fallback для десктопу
         }
       }, 1500); 
     };

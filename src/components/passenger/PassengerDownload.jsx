@@ -17,8 +17,13 @@ export default function PassengerDownload() {
         </h2>
         <p className="text-[clamp(1rem,1.5vw,1.25rem)] text-[#6B7280] leading-[1.7] mb-12">{t('p_download_subtitle')}</p>
         <div className="flex justify-center gap-6 flex-wrap mb-12">
-          <a href="#" className="inline-flex transition-transform duration-350 hover:scale-105"><img src="/icons/App Store.svg" alt="App Store" className="w-[180px] h-auto" /></a>
-          <a href="#" className="inline-flex transition-transform duration-350 hover:scale-105"><img src="/icons/Google Play.svg" alt="Google Play" className="w-[180px] h-auto" /></a>
+          <a href="https://github.com/d1azs/Clix_Taxi" target="_blank" rel="noopener noreferrer" className="inline-flex transition-transform duration-350 hover:scale-105">
+            <img src="/icons/App Store.svg" alt="App Store" className="w-[180px] h-auto" />
+          </a>
+          {/* Для скачування APK напряму з сайту, ви можете замінити посилання нижче на "/app-release.apk" */}
+          <a href="https://github.com/d1azs/Clix_Taxi/releases" target="_blank" rel="noopener noreferrer" className="inline-flex transition-transform duration-350 hover:scale-105">
+            <img src="/icons/Google Play.svg" alt="Google Play" className="w-[180px] h-auto" />
+          </a>
         </div>
         <div className="hidden md:flex items-center justify-center gap-4 p-6 bg-white border border-black/6 rounded-2xl max-w-[360px] mx-auto shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div className="w-20 h-20 bg-[#5E48E8] rounded-lg flex items-center justify-center text-[1.75rem] text-white shrink-0">📱</div>
