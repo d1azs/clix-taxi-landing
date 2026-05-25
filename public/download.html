@@ -71,14 +71,15 @@
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
         
         // --- НАЛАШТУВАННЯ ПОСИЛАНЬ ДЛЯ ЗАВАНТАЖЕННЯ ---
-        // 1. Для прямого завантаження APK, зберіть реліз у Flutter і покладіть файл
-        //    app-release.apk (або clix_taxi.apk) в папку public/, після чого вкажіть:
-        //    var androidLink = "/app-release.apk";
-        // 2. Для переходу на GitHub Releases, звідки користувач може завантажити APK:
+        // 1. Для прямого завантаження APK (Android):
+        //    var androidLink = "/app-release.apk"; (якщо лежить локально в public/)
         var androidLink = "https://github.com/d1azs/Clix_Taxi/releases"; 
         
-        // Посилання на iOS версію (або GitHub репозиторій як тимчасове рішення)
-        var iosLink = "https://github.com/d1azs/Clix_Taxi"; 
+        // 2. Для завантаження IPA (iOS):
+        //    Зверніть увагу: на iOS не можна просто так встановити .ipa файл без розробницького профілю/сертифікату (потрібен AltStore/Sideloadly або TestFlight).
+        //    Якщо ви збудуєте .ipa та викладете в релізи GitHub, вкажіть пряме посилання:
+        //    var iosLink = "https://github.com/d1azs/Clix_Taxi/releases/latest/download/clix_app.ipa";
+        var iosLink = "https://github.com/d1azs/Clix_Taxi/releases"; 
         
         // Якщо відкрито на ПК — перекине на сторінку релізів GitHub
         var fallbackLink = "https://github.com/d1azs/Clix_Taxi/releases"; 

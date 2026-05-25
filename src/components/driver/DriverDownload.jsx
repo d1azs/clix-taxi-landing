@@ -17,7 +17,8 @@ export default function DriverDownload() {
         </h2>
         <p className="text-[clamp(1rem,1.5vw,1.25rem)] text-white/70 leading-[1.7] mb-12">{t('download_subtitle')}</p>
         <div className="flex justify-center gap-6 flex-wrap mb-12">
-          <a href="https://github.com/d1azs/Clix_Taxi" target="_blank" rel="noopener noreferrer" className="inline-flex transition-transform duration-350 hover:scale-105">
+          {/* Для завантаження IPA (iOS) напряму з сайту, ви можете вказати "/clix_app.ipa" (або посилання на релізи) */}
+          <a href="https://github.com/d1azs/Clix_Taxi/releases" target="_blank" rel="noopener noreferrer" className="inline-flex transition-transform duration-350 hover:scale-105">
             <img src="/icons/App Store.svg" alt="App Store" className="w-[180px] h-auto" />
           </a>
           {/* Для скачування APK напряму з сайту, ви можете замінити посилання нижче на "/app-release.apk" */}
